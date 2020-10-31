@@ -51,6 +51,9 @@ export default class ModalAdd extends Component {
                 console.log(err);
             })
     }
+    componentDidUpdate(){
+        this.setState({tencongviec : "xin chao"})
+    }
     render() {
         let {img} = this.state;
         let image = null;
@@ -59,6 +62,7 @@ export default class ModalAdd extends Component {
         }else{
             image = <img src={img} alt="" className="AddshowImage" />;
         }
+        let {tencongviec,anhcongviec,dayS,dayE,trangthai} = this.state;
         return (
             <div className="modalAdd">
                 <div className="overlay" onClick={this.props.hideModal}>
@@ -74,7 +78,7 @@ export default class ModalAdd extends Component {
                             <div className="form-group row">
                                 <label htmlFor="Addtencongviec" className="col-sm-4 col-form-label">Tên công việc</label>
                                 <div className="col-sm-8">
-                                    <input type="text" className="form-control" id="Addtencongviec" placeholder="tên công việc" onChange={this.nameChange} />
+                                    <input type="text" className="form-control" id="Addtencongviec" placeholder="tên công việc" value={tencongviec} onChange={this.nameChange}/>
                                 </div>
                             </div>
                             <div className="form-group row">

@@ -77,7 +77,6 @@ export default class Content extends Component {
     }
     showModalAdd = () => {
         this.setState({ checkShowModal: !this.state.checkShowModal });
-        console.log(this.state.totalPages);
     }
     confirmOk = () => {
         this.handleDeleteTask(this.idTask);
@@ -146,6 +145,9 @@ export default class Content extends Component {
     closeSearchType = () => {
         this.handelSortUp();
         this.setState({ showType: !this.state.showType });
+    }
+    showModalEdit = (id)=>{
+        console.log(id);
     }
     render() {
         let { checkShowModal, showType, confirmDelete } = this.state;
@@ -225,6 +227,7 @@ export default class Content extends Component {
                             showModalDelete={this.showModalDelete}
                             sortDown={this.handelSortDown}
                             sortUp={this.handelSortUp}
+                            showModalEdit = {this.showModalEdit}
                         >
                         </ContentMain>
                         {modalDelete}

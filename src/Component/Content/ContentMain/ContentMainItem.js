@@ -1,7 +1,25 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import changeToSlug from '../../ChangeSlug';
+import ModalAdd from '../ModalAdd';
 export default class ContentMainItem extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showModalEdit : false,
+        }
+    }
+    
+    editTask = ()=>{
+        this.setState({showModalEdit : !this.state.showModalEdit}); 
+        this.props.showModalEdit();
+    }
+    hideModalEdit = ()=>{
+        this.setState({showModalEdit : !this.state.showModalEdit}); 
+    }
+    showNameEdit = ()=>{
+        console.log('name');
+    }
     render() {
         let check = this.props.trangthai;
         let trangthai = null;
@@ -18,6 +36,13 @@ export default class ContentMainItem extends Component {
             classTranghai = 'chuahoanthanh';
             element = <span className={classTranghai}> {trangthai}</span>
         }
+        let modal = <></>;
+        let {showModalEdit} = this.state;
+        if(showModalEdit){
+            modal = <ModalAdd hideModal = {this.hideModalEdit} showName = {this.showNameEdit}></ModalAdd>
+        }else{
+            modal = <></>;
+        }
         return (
             <tr>
                 <th scope="row">{this.props.stt}</th>
@@ -32,11 +57,14 @@ export default class ContentMainItem extends Component {
                 </td>
                 <td>
                     <button className="btn btn-danger btnAction" onClick={this.props.showModal}>Xóa</button>
-                    <button className="btn btn-success btnAction">Sửa</button>
+                    <button className="btn btn-success btnAction" onClick = {this.editTask}>Sửa</button>
                     <Link to={"/detail/" + title + "/" + this.props.showLink}>
                         <button className="btn btn-warning btnAction">...</button>
                     </Link>
                 </td>
+                {
+                    modal
+                }
             </tr>
         )
     }

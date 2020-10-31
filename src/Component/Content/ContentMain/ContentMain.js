@@ -52,6 +52,7 @@ export default class ContentMain extends Component {
                                 trangthai={value['state']}
                                 showModal = {()=>this.props.showModalDelete(value['id_task'])}
                                 showLink = {value['id_task']}
+                                showModalEdit = {()=>this.props.showModalEdit(value['id_task'])}
                             ></ContentMainItem>
                         })}
 
