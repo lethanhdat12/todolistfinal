@@ -14,10 +14,12 @@ export default class Content extends Component {
             totalPages: [],
             searchState: 1,
             showType: false,
+            confirmDelete: false,
         }
         this.BASE_URL = 'http://localhost/todolistfinal/API/';
         this.PerPage = 4;
         this.idPage = 1;
+        this.idTask = null;
     }
     caculaterData = (idPage) => {
         let Begin = (idPage - 1) * this.PerPage;
@@ -58,6 +60,13 @@ export default class Content extends Component {
                 console.warn(new Error(err));
             })
     }
+    showModalDelete = (idTask) => {
+        this.idTask = idTask;
+        this.setState({ confirmDelete: !this.state.confirmDelete });
+    }
+    hiddenModalDelete = () => {
+        this.setState({ confirmDelete: !this.state.confirmDelete });
+    }
     handleDeleteTask = (id) => {
         Axios.post(`${this.BASE_URL}post/deleteTask.php`, { idTask: id })
             .then(res => {
@@ -69,6 +78,13 @@ export default class Content extends Component {
     showModalAdd = () => {
         this.setState({ checkShowModal: !this.state.checkShowModal });
         console.log(this.state.totalPages);
+    }
+    confirmOk = () => {
+        this.handleDeleteTask(this.idTask);
+        this.setState({ confirmDelete: false });
+    }
+    confirmCancle = () => {
+        this.setState({ confirmDelete: false });
     }
     hideModal = () => {
         this.setState({ checkShowModal: !this.state.checkShowModal });
@@ -91,7 +107,7 @@ export default class Content extends Component {
     }
     searchByName = () => {
         this.setState({ searchState: 1 });
-        this.setState({ showType: false});
+        this.setState({ showType: false });
     }
     searchByType = () => {
         this.setState({ searchState: 2 });
@@ -99,22 +115,21 @@ export default class Content extends Component {
     }
     searchTypeDone = (e) => {
         console.log(e.target);
-        Axios.post(`${this.BASE_URL}post/searchByType.php`, { stateType: 1})
-        .then(res => {
-            this.changeState(res.data, this.idPage);
-        }).catch(err => {
-            console.warn(new Error(err));
-        })
+        Axios.post(`${this.BASE_URL}post/searchByType.php`, { stateType: 1 })
+            .then(res => {
+                this.changeState(res.data, this.idPage);
+            }).catch(err => {
+                console.warn(new Error(err));
+            })
     }
     searchTypeDont = () => {
-        Axios.post(`${this.BASE_URL}post/searchByType.php`, { stateType: 2})
-        .then(res => {
-            this.changeState(res.data, this.idPage);
-        }).catch(err => {
-            console.warn(new Error(err));
-        })
+        Axios.post(`${this.BASE_URL}post/searchByType.php`, { stateType: 2 })
+            .then(res => {
+                this.changeState(res.data, this.idPage);
+            }).catch(err => {
+                console.warn(new Error(err));
+            })
     }
-
     handleSearch = (e) => {
         let { searchState } = this.state;
         if (e.keyCode === 13) {
@@ -128,12 +143,12 @@ export default class Content extends Component {
             }
         }
     }
-    closeSearchType = ()=>{
+    closeSearchType = () => {
         this.handelSortUp();
         this.setState({ showType: !this.state.showType });
     }
     render() {
-        let { checkShowModal, showType } = this.state;
+        let { checkShowModal, showType, confirmDelete } = this.state;
         let element = null;
         if (showType) {
             element = <>
@@ -141,10 +156,35 @@ export default class Content extends Component {
                     <option defaultValue={1} onClick={this.searchTypeDone}>Hoàn thành</option>
                     <option defaultValue={2} onClick={this.searchTypeDont}>Chưa hoàn thành</option>
                 </select>
-                <span id="closeSearchType" onClick = {this.closeSearchType}>x</span>
+                <span id="closeSearchType" onClick={this.closeSearchType}>x</span>
             </>
         } else {
             element = null;
+        }
+        let modalDelete = null;
+        if (confirmDelete) {
+            modalDelete = <>
+                <div className="modalConfirmDelete">
+                    <div className="overlayConfirm" onClick={this.hiddenModalDelete}></div>
+                    <div className="modalConfirmMain">
+                        <div className="card">
+                            <div className="card-header">
+                                <div className="card-title">
+                                    <h4>Bạn có muốn xóa ?</h4>
+                                </div>
+                            </div>
+                            <div className="card-body">
+                                <div className="boxButtonConfirm">
+                                    <button className="btn btn-danger btnConfirm" onClick={this.confirmOk}>OK</button>
+                                    <button className="btn btn-success btnConfirm" onClick={this.confirmCancle}>Cancle</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>
+        } else {
+            modalDelete = null;
         }
         if (checkShowModal) {
             return (
@@ -181,12 +221,12 @@ export default class Content extends Component {
                         </div>
                         <ContentMain
                             task={this.state.DataShow}
-                            deleteTask={this.handleDeleteTask}
+                            showModalDelete={this.showModalDelete}
                             sortDown={this.handelSortDown}
                             sortUp={this.handelSortUp}
                         >
                         </ContentMain>
-
+                        {modalDelete}
                         <ul className="boxPanigination">
                             {
                                 this.state.totalPages.map((value, index) => {

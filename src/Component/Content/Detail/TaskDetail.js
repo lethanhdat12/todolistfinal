@@ -8,9 +8,9 @@ export default class TaskDetail extends Component {
             <div className="taskdetail">
                 <div className="container">
                     <div className="card">
-                        <div className="card-header card-custom">
-                            <div className="card-title card-custom ">
-                                <img src="/image/detail.jpg" alt="detail" className="title-detailTask"></img>
+                        <div className="card-header">
+                            <div className="card-title">
+                               <h3>CHI TIẾT CÔNG VIỆC</h3>
                             </div>
                         </div>
                         <div className="card-body card-bodyDetail">
