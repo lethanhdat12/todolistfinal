@@ -9,7 +9,7 @@ export default class Direct extends Component {
                 <Route exact path="/">
                     <Content></Content>
                 </Route>
-                <Route path="/detail">
+                <Route path="/detail/:title/:id">
                     <TaskDetail></TaskDetail>
                 </Route>
             </Switch>

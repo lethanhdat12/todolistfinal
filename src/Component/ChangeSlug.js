@@ -28,7 +28,6 @@ export default class changeToSlug {
         slug = '@' + slug + '@';
         slug = slug.replace(/\@\-|\-\@|\@/gi,'');
         //In slug ra textbox có id “slug”
-        // ahihi
         return slug;
     }
 }

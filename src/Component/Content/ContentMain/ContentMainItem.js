@@ -11,7 +11,7 @@ export default class ContentMainItem extends Component {
         if (check === 1) {
             trangthai = 'Hoàn thành';
             classTranghai = 'hoanthanh';
-            
+
             element = <span className={classTranghai}> {trangthai}</span>
         } else {
             trangthai = 'Chưa hoàn thành';
@@ -31,9 +31,9 @@ export default class ContentMainItem extends Component {
                     {element}
                 </td>
                 <td>
-                    <button className="btn btn-danger btnAction" onClick = {this.props.showModal}>Xóa</button>
+                    <button className="btn btn-danger btnAction" onClick={this.props.showModal}>Xóa</button>
                     <button className="btn btn-success btnAction">Sửa</button>
-                    <Link to={"/detail/"+title+"-"+this.props.showLink}>
+                    <Link to={"/detail/" + title + "/" + this.props.showLink}>
                         <button className="btn btn-warning btnAction">...</button>
                     </Link>
                 </td>

@@ -7,7 +7,7 @@ export default class TaskDetailItem extends Component {
                 <th scope="row">Bước {this.props.step}</th>
                 <td className="nameStep">{this.props.stepname}</td>
                 <td>
-                    <button className="btn btn-danger"> Xóa</button>
+                    <button className="btn btn-danger" onClick = {this.props.deleteItem}> Xóa</button>
                 </td>
             </tr>
         )
