@@ -51,6 +51,7 @@ export default class ContentMain extends Component {
                                 dayEnd={value['dayE']}
                                 trangthai={value['state']}
                                 showModal = {()=>this.props.showModalDelete(value['id_task'])}
+                                showLink = {value['id_task']}
                             ></ContentMainItem>
                         })}
 

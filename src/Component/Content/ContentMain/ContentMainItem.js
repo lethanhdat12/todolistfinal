@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import changeToSlug from '../../ChangeSlug';
 export default class ContentMainItem extends Component {
     render() {
         let check = this.props.trangthai;
         let trangthai = null;
         let classTranghai = null;
         let element = null;
+        let title = new changeToSlug(this.props.tieude).ChangeToSlug();
         if (check === 1) {
             trangthai = 'Hoàn thành';
             classTranghai = 'hoanthanh';
@@ -31,7 +33,7 @@ export default class ContentMainItem extends Component {
                 <td>
                     <button className="btn btn-danger btnAction" onClick = {this.props.showModal}>Xóa</button>
                     <button className="btn btn-success btnAction">Sửa</button>
-                    <Link to="/detail">
+                    <Link to={"/detail/"+title+"-"+this.props.showLink}>
                         <button className="btn btn-warning btnAction">...</button>
                     </Link>
                 </td>
