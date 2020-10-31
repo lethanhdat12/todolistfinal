@@ -166,6 +166,7 @@ export default class Content extends Component {
             modalDelete = <>
                 <div className="modalConfirmDelete">
                     <div className="overlayConfirm" onClick={this.hiddenModalDelete}></div>
+                    {/* chào anh em đứng đây từ chiều */}
                     <div className="modalConfirmMain">
                         <div className="card">
                             <div className="card-header">
