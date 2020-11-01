@@ -17,8 +17,8 @@ export default class ContentMainItem extends Component {
     hideModalEdit = ()=>{
         this.setState({showModalEdit : !this.state.showModalEdit}); 
     }
-    showNameEdit = ()=>{
-        console.log('name');
+    handleAddtask = ()=>{
+        console.log('editTaskItem');
     }
     render() {
         let check = this.props.trangthai;
@@ -39,7 +39,9 @@ export default class ContentMainItem extends Component {
         let modal = <></>;
         let {showModalEdit} = this.state;
         if(showModalEdit){
-            modal = <ModalAdd hideModal = {this.hideModalEdit} showName = {this.showNameEdit}></ModalAdd>
+            modal = <ModalAdd 
+            hideModal = {this.hideModalEdit}
+            ></ModalAdd>
         }else{
             modal = <></>;
         }

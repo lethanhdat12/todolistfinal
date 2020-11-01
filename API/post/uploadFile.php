@@ -37,10 +37,10 @@
   $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
   // Cỡ lớn nhất được upload (bytes)
-  $maxfilesize   = 800000;
+  $maxfilesize   = 8000000;
 
   ////Những loại file được phép upload
-  $allowtypes    = array('jpg', 'png', 'jpeg', 'gif');
+  $allowtypes    = array('jpg', 'PNG', 'jpeg', 'gif');
 
 
   if(isset($_POST["submit"])) {

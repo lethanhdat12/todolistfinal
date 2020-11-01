@@ -10,7 +10,7 @@ export default class ModalAdd extends Component {
             dayE: null,
             trangthai: null,
             file: null,
-            img : null,
+            img: null,
         }
     }
     nameChange = (e) => {
@@ -33,10 +33,10 @@ export default class ModalAdd extends Component {
         let files = e.target.files[0];
         this.setState({ anhcongviec: files['name'] });
         this.setState({ file: e.target.files[0] });
-        this.setState({img : URL.createObjectURL(e.target.files[0])});
+        this.setState({ img: URL.createObjectURL(e.target.files[0]) });
     }
     handleAddtask = () => {
-        let { file,img,...rest } = this.state;
+        let { file, img, ...rest } = this.state;
         this.props.addTask(rest);
         this.handleUploadFile(file);
         this.props.hideModal();
@@ -46,23 +46,19 @@ export default class ModalAdd extends Component {
         formData.append('avatar', files);
         Axios.post(`${this.props.pathUrl}post/uploadFile.php`, formData)
             .then(res => {
-               console.log(res);
+                console.log(res);
             }).catch(err => {
                 console.log(err);
             })
     }
-    componentDidUpdate(){
-        this.setState({tencongviec : "xin chao"})
-    }
     render() {
-        let {img} = this.state;
+        let { img } = this.state;
         let image = null;
-        if(img===null){
+        if (img === null) {
             image = <img src="/image/camera.png" alt="" className="AddshowImage" />;
-        }else{
+        } else {
             image = <img src={img} alt="" className="AddshowImage" />;
         }
-        let {tencongviec,anhcongviec,dayS,dayE,trangthai} = this.state;
         return (
             <div className="modalAdd">
                 <div className="overlay" onClick={this.props.hideModal}>
@@ -78,7 +74,7 @@ export default class ModalAdd extends Component {
                             <div className="form-group row">
                                 <label htmlFor="Addtencongviec" className="col-sm-4 col-form-label">Tên công việc</label>
                                 <div className="col-sm-8">
-                                    <input type="text" className="form-control" id="Addtencongviec" placeholder="tên công việc" value={tencongviec} onChange={this.nameChange}/>
+                                    <input type="text" className="form-control" id="Addtencongviec" placeholder="tên công việc"  onChange={this.nameChange} />
                                 </div>
                             </div>
                             <div className="form-group row">
