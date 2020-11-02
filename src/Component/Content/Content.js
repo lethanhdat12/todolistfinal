@@ -135,7 +135,7 @@ export default class Content extends Component {
             if (searchState === 1) {
                 Axios.post(`${this.BASE_URL}post/searchByName.php`, { name: e.target.value })
                     .then(res => {
-                        this.changeState(res.data, this.idPage);
+                        this.changeState(res.data, 1);
                     }).catch(err => {
                         console.warn(new Error(err));
                     })

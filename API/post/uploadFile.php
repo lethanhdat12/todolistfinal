@@ -40,7 +40,7 @@
   $maxfilesize   = 8000000;
 
   ////Những loại file được phép upload
-  $allowtypes    = array('jpg', 'PNG', 'jpeg', 'gif');
+  $allowtypes    = array('jpg','PNG','png', 'jpeg', 'gif');
 
 
   if(isset($_POST["submit"])) {

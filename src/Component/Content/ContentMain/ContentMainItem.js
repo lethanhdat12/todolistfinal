@@ -6,18 +6,25 @@ export default class ContentMainItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showModalEdit : false,
+            showModalEdit: false,
+            objValue: {
+                tencongviec: "cong viec 1",
+                anhcongviec: "anh1.jpg",
+                dayS: "2020-11-08",
+                dayE: "2020-11-08",
+                trangthai: 1,
+            },
         }
     }
-    
-    editTask = ()=>{
-        this.setState({showModalEdit : !this.state.showModalEdit}); 
+
+    editTask = () => {
+        this.setState({ showModalEdit: !this.state.showModalEdit });
         this.props.showModalEdit();
     }
-    hideModalEdit = ()=>{
-        this.setState({showModalEdit : !this.state.showModalEdit}); 
+    hideModalEdit = () => {
+        this.setState({ showModalEdit: !this.state.showModalEdit });
     }
-    handleAddtask = ()=>{
+    handleEdit = () => {
         console.log('editTaskItem');
     }
     render() {
@@ -37,12 +44,14 @@ export default class ContentMainItem extends Component {
             element = <span className={classTranghai}> {trangthai}</span>
         }
         let modal = <></>;
-        let {showModalEdit} = this.state;
-        if(showModalEdit){
-            modal = <ModalAdd 
-            hideModal = {this.hideModalEdit}
+        let { showModalEdit } = this.state;
+        if (showModalEdit) {
+            modal = <ModalAdd
+                hideModal={this.hideModalEdit}
+                click={this.handleEdit}
+                objValue={this.state.objValue}
             ></ModalAdd>
-        }else{
+        } else {
             modal = <></>;
         }
         return (
@@ -59,7 +68,7 @@ export default class ContentMainItem extends Component {
                 </td>
                 <td>
                     <button className="btn btn-danger btnAction" onClick={this.props.showModal}>Xóa</button>
-                    <button className="btn btn-success btnAction" onClick = {this.editTask}>Sửa</button>
+                    <button className="btn btn-success btnAction" onClick={this.editTask}>Sửa</button>
                     <Link to={"/detail/" + title + "/" + this.props.showLink}>
                         <button className="btn btn-warning btnAction">...</button>
                     </Link>

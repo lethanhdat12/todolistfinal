@@ -12,6 +12,7 @@ export default class ModalAdd extends Component {
             file: null,
             img: null,
         }
+        this.nameButton="";
     }
     nameChange = (e) => {
         this.setState({ tencongviec: e.target.value });
@@ -51,8 +52,27 @@ export default class ModalAdd extends Component {
                 console.log(err);
             })
     }
+    handelTotal = ()=>{
+        if(this.props.click){
+            this.props.click();
+        }else{
+            this.handleAddtask();
+        }
+    }
+    setValue = (objValue)=>{
+        this.setState({tencongviec : objValue['tencongviec']});
+        this.setState({dayS : objValue['dayS']});
+        this.setState({dayE : objValue['dayE']});
+        this.setState({trangthai : objValue['trangthai']});
+        this.setState({anhcongviec : objValue['anhcongviec']});
+    }
     render() {
         let { img } = this.state;
+        if(this.props.click){
+            this.nameButton = "Chỉnh sửa nhiệm vụ";
+        }else{
+            this.nameButton = "Thêm nhiệm vụ";
+        }
         let image = null;
         if (img === null) {
             image = <img src="/image/camera.png" alt="" className="AddshowImage" />;
@@ -67,26 +87,26 @@ export default class ModalAdd extends Component {
                     <div className="card">
                         <div className="card-header">
                             <div className="card-title">
-                                <h3> Thêm công việc </h3>
+                                <h3> {this.nameButton} </h3>
                             </div>
                         </div>
                         <div className="card-body">
                             <div className="form-group row">
                                 <label htmlFor="Addtencongviec" className="col-sm-4 col-form-label">Tên công việc</label>
                                 <div className="col-sm-8">
-                                    <input type="text" className="form-control" id="Addtencongviec" placeholder="tên công việc"  onChange={this.nameChange} />
+                                    <input type="text" className="form-control" id="Addtencongviec" placeholder="tên công việc"  onChange={this.nameChange} value={this.state.tencongviec} />
                                 </div>
                             </div>
                             <div className="form-group row">
                                 <label htmlFor="AdddayS" className="col-sm-4 col-form-label">Ngày bắt đầu</label>
                                 <div className="col-sm-8">
-                                    <input type="date" className="form-control" id="AdddayS" onChange={this.daySChange} />
+                                    <input type="date" className="form-control" id="AdddayS" onChange={this.daySChange} value={this.state.dayS} />
                                 </div>
                             </div>
                             <div className="form-group row">
                                 <label htmlFor="AdddayE" className="col-sm-4 col-form-label">Ngày kết thúc</label>
                                 <div className="col-sm-8">
-                                    <input type="date" className="form-control" id="AdddayE" onChange={this.dayEchange} />
+                                    <input type="date" className="form-control" id="AdddayE" onChange={this.dayEchange} value={this.state.dayE}/>
                                 </div>
                             </div>
                             <div className="form-group row">
@@ -104,7 +124,7 @@ export default class ModalAdd extends Component {
                                     <input type="file" className="form-control" id="image" onChange={this.imgChange} />
                                 </div>
                             </div>
-                            <button className="btn btn-success" id="addCongviec" onClick={this.handleAddtask}>Thêm công việc</button>
+        <button className="btn btn-success" id="addCongviec" onClick={this.handelTotal}>{this.nameButton}</button>
                         </div>
                     </div>
                 </div>
