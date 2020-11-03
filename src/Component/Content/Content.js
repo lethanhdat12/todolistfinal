@@ -146,8 +146,14 @@ export default class Content extends Component {
         this.handelSortUp();
         this.setState({ showType: !this.state.showType });
     }
-    handelEditDone = (id)=>{
-        console.log('hoan thanh');
+    handelEditDone = () => {
+        Axios.get(`${this.BASE_URL}get/getTask.php`)
+            .then(res => {
+                this.changeState(res.data, this.idPage);
+            })
+            .catch(err => {
+                console.warn(new Error(err));
+            })
     }
     render() {
         let { checkShowModal, showType, confirmDelete } = this.state;
@@ -226,7 +232,7 @@ export default class Content extends Component {
                             showModalDelete={this.showModalDelete}
                             sortDown={this.handelSortDown}
                             sortUp={this.handelSortUp}
-                            handelEditDone = {this.handelEditDone}
+                            handelEditDone={this.handelEditDone}
                             path={this.BASE_URL}
                         >
                         </ContentMain>

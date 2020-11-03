@@ -17,27 +17,36 @@ export default class ContentMainItem extends Component {
             },
         }
     }
-  
     editTask = () => {
         let id = this.props.showLink;
-        Axios.post(`${this.props.pathUrl}post/getTaskById.php`,{idTask : id})
-                .then(res=>{
-                    let [a,,,] = res.data;
-                    let {id_task,...rest} = a;
-                    this.setState({ objValue : rest});
-                    this.setState({ showModalEdit: !this.state.showModalEdit });
-                })
-                .catch(err=>{
-                    console.log(err);
-                })
-               
+        Axios.post(`${this.props.pathUrl}post/getTaskById.php`, { idTask: id })
+            .then(res => {
+                let [a, , ,] = res.data;
+                let { id_task, ...rest } = a;
+                this.setState({ objValue: rest });
+                this.setState({ showModalEdit: !this.state.showModalEdit });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
     }
     hideModalEdit = () => {
         this.setState({ showModalEdit: !this.state.showModalEdit });
     }
-    handleEdit = (dataEdit) => {
-        console.log(dataEdit);
-        this.props.handelEditDone()
+    handleEdit = (valueEdit) => {
+        let data = {
+            dataEdit: valueEdit,
+            id: this.props.showLink,
+        }
+        Axios.post(`${this.props.pathUrl}post/updateTask.php`, { dataEdit: data })
+            .then(res => {
+                this.props.handelEditDone()
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
     }
     render() {
         let check = this.props.trangthai;

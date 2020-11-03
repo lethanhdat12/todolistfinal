@@ -23,7 +23,6 @@ export default class ModalAdd extends Component {
             this.setState({trangthai : this.props.objValue['state']});
             let src = `/image/${this.props.objValue['image']}`;
             this.setState({img : src});
-            console.log(this.props.objValue)
         }else{
             console.log('khong co gia tri');
         }
@@ -63,12 +62,13 @@ export default class ModalAdd extends Component {
                 console.log(err);
             })
     }
+    
     handelTotal = () => {
         if (this.props.click) {
             let { file, img, ...dataEdit } = this.state;
             this.props.click(dataEdit);
-            // this.handleUploadFile(file);
-            // this.props.hideModal();
+            this.handleUploadFile(file);
+            this.props.hideModal();
         } else {
             this.handleAddtask();
         }

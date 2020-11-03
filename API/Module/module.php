@@ -60,20 +60,10 @@
                   $sql->bind_param('i', $idTaskItem);
                   return $sql->execute();
             }
-         
-
-// CHƯA LÀM LẠI
-         public function getDetailTask($is_task){
-            $sql = parent::$connection->prepare("SELECT * FROM `listitemtask` WHERE listitemtask.id_task = ? ");
-            $sql->bind_param('i', $is_task);
-            return parent::select($sql);
-}
-      
-            public function EditTask($id_task,$nameTask){
-               $sql = parent::$connection->prepare("UPDATE `task` SET `name_task` = ? WHERE `task`.`id_task` = ?");
-               $sql->bind_param('si', $nameTask,$id_task);
+            public function updateTaskById($taskId,$nameTask,$img,$dayS,$dayE,$state){
+               $sql = parent::$connection->prepare("UPDATE `task` SET `name_task` = '$nameTask', `image` = '$img', `dayS` = '$dayS', `dayE` = '$dayE', `state` = $state WHERE `task`.`id_task` = $taskId");
                return $sql->execute();
-}
+         }
 // task items
             public function getListItemsTask($id_task){
                $sql = parent::$connection->prepare("SELECT * FROM `task` INNER JOIN listitemtask ON task.id_task = listitemtask.id_task WHERE task.id_task = ?  ");
